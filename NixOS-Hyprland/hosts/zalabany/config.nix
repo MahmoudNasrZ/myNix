@@ -24,7 +24,7 @@
 
   # BOOT related stuff
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest; # Kernel
+    kernelPackages = pkgs.linuxPackages_6_1; # Kernel
 
     kernelParams = [
       "systemd.mask=systemd-vconsole-setup.service"
@@ -35,8 +35,8 @@
  	  ];
 
     # This is for OBS Virtual Cam Support
-    kernelModules = [ "v4l2loopback" ];
-    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+    # kernelModules = [ "v4l2loopback" ];
+    # extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
     
     initrd = { 
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
@@ -53,7 +53,7 @@
     loader.systemd-boot.enable = true;
   
     loader.efi = {
-	    #efiSysMountPoint = "/efi"; #this is if you have separate /efi partition
+	    efiSysMountPoint = "/boot"; #this is if you have separate /efi partition
 	    canTouchEfiVariables = true;
   	  };
 

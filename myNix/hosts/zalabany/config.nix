@@ -24,7 +24,7 @@
 
   # BOOT related stuff
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_1; # Kernel
+    kernelPackages = pkgs.linuxPackages_zen; # Kernel
 
     kernelParams = [
       "systemd.mask=systemd-vconsole-setup.service"
@@ -50,25 +50,25 @@
 
     ## BOOT LOADERS: NOT USE ONLY 1. either systemd or grub  
     # Bootloader SystemD
-    loader.systemd-boot.enable = true;
+    loader.systemd-boot.enable = false;
   
     loader.efi = {
 	    efiSysMountPoint = "/boot"; #this is if you have separate /efi partition
 	    canTouchEfiVariables = true;
   	  };
 
-    loader.timeout = 1;    
+    loader.timeout = 5;    
   			
     # Bootloader GRUB
-    #loader.grub = {
-	    #enable = true;
-	    #  devices = [ "nodev" ];
-	    #  efiSupport = true;
-      #  gfxmodeBios = "auto";
-	    #  memtest86.enable = true;
-	    #  extraGrubInstallArgs = [ "--bootloader-id=${host}" ];
-	    #  configurationName = "${host}";
-  	  #	 };
+    loader.grub = {
+	    enable = true;
+	     devices = [ "nodev" ];
+	     efiSupport = true;
+       gfxmodeBios = "auto";
+	     memtest86.enable = true;
+	     extraGrubInstallArgs = [ "--bootloader-id=${host}" ];
+	     configurationName = "${host}";
+  	  	 };
 
     # Bootloader GRUB theme, configure below
 
@@ -94,10 +94,10 @@
   };
 
   # GRUB Bootloader theme. Of course you need to enable GRUB above.. duh!
-  #distro-grub-themes = {
-  #  enable = true;
-  #  theme = "nixos";
-  #};
+  distro-grub-themes = {
+   enable = true;
+   theme = "nixos";
+  };
 
 
   # Extra Module Options
@@ -118,10 +118,10 @@
   networking.timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
 
   # Set your time zone.
-  services.automatic-timezoned.enable = true; #based on IP location
+  # services.automatic-timezoned.enable = true; #based on IP location
   
   #https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  #time.timeZone = "Asia/Seoul"; # Set local timezone
+  time.timeZone = "Africa/Cairo"; # Set local timezone
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
